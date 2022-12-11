@@ -20,8 +20,12 @@ void ListString::print(){
     }
     Node* aux = this->_frist;
     int num =1;
+    ConfigSaida* output= ConfigSaida::getInstancia();
     while(aux != NULL){
-        cout<<num<<". "<<aux->getMeaning()<<endl;
+        output->print(to_string(num));
+        output->print(". ");
+        output->print(aux->getMeaning());
+        output->print("\n");
         aux = aux->next;
         num++;
     }

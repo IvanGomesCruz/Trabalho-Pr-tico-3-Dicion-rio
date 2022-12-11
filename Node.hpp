@@ -1,3 +1,6 @@
+#ifndef NODE_H
+#define NODE_H
+
 #include <iostream>
 #include <string>
 
@@ -14,3 +17,5 @@ public:
     string getMeaning();
     ~Node();
 };
+
+#endif

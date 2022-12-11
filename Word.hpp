@@ -1,6 +1,10 @@
+#ifndef WORD_H
+#define WORD_H
+
 #include <iostream>
 #include <string>
 #include "ListString.hpp"
+#include "ConfigSaida.hpp"
 using namespace std;
 class Word
 {
@@ -16,5 +20,7 @@ public:
     bool operator ==(Word word2);
     string getWord();
     string getType();
+    int getKeyT();
 };
 
+#endif

@@ -8,10 +8,13 @@ Word::Word(string type, string word){
 }
 
 void Word::print(){
-
-    cout<<this->_word<<" ("<<this->_type<<")"<<endl;
+    ConfigSaida* output = ConfigSaida::getInstancia();
+    output->print(this->_word);
+    output->print(" (");
+    output->print(this->_type);
+    output->print(")");
+    output->print("\n");
     this->_meanings.print();
-
 }
 
 void Word::appendMeaning(string line){
@@ -32,4 +35,9 @@ string Word::getWord(){
 }
 string Word::getType(){
     return _type;
+}
+
+int Word::getKeyT(){
+    int c = getWord()[0]-96;
+    return c;
 }

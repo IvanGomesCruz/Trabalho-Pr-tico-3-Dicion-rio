@@ -3,12 +3,23 @@
 #include <fstream>
 #include <stdio.h>
 #include "ConfigEntrada.hpp"
+#include "ConfigSaida.hpp"
 #include "Word.hpp"
+#include "AVLNode.hpp"
+#include "AVLTree.hpp"
 
 using namespace std;
 
 Word* InputSplit(string input);
-
+void preOrder(AVLNode *root)
+{
+  if(root != NULL)
+  {
+    cout << root->key << " "; 
+    preOrder(root->leftChild); 
+    preOrder(root->rightChild);  
+    }
+}
 int main(int argv,char* argc[]) {
   string str;
   int i =1;
@@ -18,17 +29,17 @@ int main(int argv,char* argc[]) {
     i++;
   }
   ConfigEntrada* entrada = ConfigEntrada::getInstancia(str);
+  ConfigSaida* output = ConfigSaida::getInstancia("output.txt");
   std::ifstream myfile (entrada->i,std::fstream::in);
   string line;
   Word* word = nullptr;
+  AVLTree* tree = new AVLTree();
   while(getline(myfile,line)){
     word = InputSplit(line);
-    word->print();
-    delete(word);
+    tree->append(tree->root,word);
   }
+ preOrder(tree->root);
 
-  //Word word("name","Brasil");
- // word.print();
   delete(entrada);
   return 0;
 }
