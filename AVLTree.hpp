@@ -23,7 +23,14 @@ public:
     static int height(AVLNode* node);
     static int balanceFactor(AVLNode *node);
     void append(AVLNode* &p, Word* item);
-    void balancear(AVLNode* &p,int key);
+    void balancear(AVLNode* p,int key);
+    void leftRotate(AVLNode* node);
+    void rightRotate(AVLNode* node);
+
+    //void remove(Word* item);
+    AVLNode* find(int key);
+    AVLNode* search(AVLNode* node, int key);
+
 };
 
 

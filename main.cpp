@@ -12,7 +12,9 @@ using namespace std;
 
 Word* InputSplit(string input);
 void preOrder(AVLNode *root)
-{
+{ 
+  if(root ==NULL){
+  }
   if(root != NULL)
   {
     cout << root->key << " "; 
@@ -35,11 +37,23 @@ int main(int argv,char* argc[]) {
   Word* word = nullptr;
   AVLTree* tree = new AVLTree();
   while(getline(myfile,line)){
+
     word = InputSplit(line);
     tree->append(tree->root,word);
   }
- preOrder(tree->root);
-
+  preOrder(tree->root);
+  //cout<<endl;
+  //char c;
+  //cin>>c;
+  //int a = c -96;
+  //cout<<a<<endl;
+  //AVLNode* finded = tree->find(a);
+  //if(finded == NULL){
+  //  cout<<"Não encontrado"<<endl;
+  //}
+  //else{
+   // finded->content->print();
+  //}
   delete(entrada);
   return 0;
 }

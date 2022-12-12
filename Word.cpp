@@ -38,6 +38,6 @@ string Word::getType(){
 }
 
 int Word::getKeyT(){
-    int c = getWord()[0]-96;
+    int c = getWord()[0] -96;
     return c;
 }
