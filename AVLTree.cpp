@@ -16,21 +16,7 @@ return balance;
 
 
 void AVLTree::rightRotate(AVLNode* node){
-    if(node->parent == this->root){
-        this->root = node;
-    }
-    node->parent->leftChild = node->rightChild;
-    node->rightChild = node->parent;
-    if(node->key > node->parent->key){
-        node->parent->parent->rightChild = node;
-    }
-    
-    AVLNode* aux = node->parent;
-    node->parent = node->parent->parent;
-    aux->parent = node;
-    if(aux->leftChild != NULL){
-        aux->leftChild->parent = aux;
-    }
+
 }
 
 void AVLTree::leftRotate(AVLNode* node){

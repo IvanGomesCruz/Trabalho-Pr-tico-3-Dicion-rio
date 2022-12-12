@@ -23,16 +23,16 @@ void preOrder(AVLNode *root)
     }
 }
 int main(int argv,char* argc[]) {
-  string str;
-  int i =1;
-  while(i<argv){
-    str.append(argc[i]);
-    str.append(" ");
-    i++;
-  }
-  ConfigEntrada* entrada = ConfigEntrada::getInstancia(str);
-  ConfigSaida* output = ConfigSaida::getInstancia("output.txt");
-  std::ifstream myfile (entrada->i,std::fstream::in);
+  //string str;
+  //int i =1;
+  //while(i<argv){
+    //str.append(argc[i]);
+    //str.append(" ");
+   // i++;
+  //}
+  //ConfigEntrada* entrada = ConfigEntrada::getInstancia(str);
+  //ConfigSaida* output = ConfigSaida::getInstancia("output.txt");
+  std::ifstream myfile ("entrada.txt",std::fstream::in);
   string line;
   Word* word = nullptr;
   AVLTree* tree = new AVLTree();
@@ -54,7 +54,7 @@ int main(int argv,char* argc[]) {
   //else{
    // finded->content->print();
   //}
-  delete(entrada);
+  //delete(entrada);
   return 0;
 }
 
