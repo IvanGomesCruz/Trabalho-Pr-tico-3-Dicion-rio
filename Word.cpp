@@ -43,7 +43,5 @@ string Word::getKeyT(){
 }
 
 string Word::getMeaning(){
-    if(numMeanings != 0){
         return this->meanings._frist->getStr();
-    }
 }
