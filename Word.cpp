@@ -4,6 +4,7 @@ Word::Word(string type, string word){
 
     this->_type = type;
     this->_word = word;
+    this->numMeanings =0;
 
 }
 
@@ -14,13 +15,13 @@ void Word::print(){
     output->print(this->_type);
     output->print(")");
     output->print("\n");
-    this->_meanings.print();
+    this->meanings.print();
 }
 
 void Word::appendMeaning(string line){
 
-    this->_meanings.append(line);
-
+    this->meanings.append(line);
+    numMeanings +=1;
 }
 
 bool Word::operator ==(Word word){
@@ -37,7 +38,12 @@ string Word::getType(){
     return _type;
 }
 
-int Word::getKeyT(){
-    int c = getWord()[0] -96;
-    return c;
+string Word::getKeyT(){
+    return getWord().append(" "+getType());
+}
+
+string Word::getMeaning(){
+    if(numMeanings != 0){
+        return this->meanings._frist->getStr();
+    }
 }

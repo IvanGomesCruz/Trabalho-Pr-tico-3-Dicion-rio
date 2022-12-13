@@ -1,8 +1,8 @@
 #include "Node.hpp"
 
-Node::Node(string meaning)
+Node::Node(string str)
 {
-    this->_meaning = meaning;
+    this->_str = str;
     next = NULL;
 }
 
@@ -10,6 +10,6 @@ Node::~Node()
 {
     delete(next);
 }
-string Node::getMeaning(){
-    return _meaning;
+string Node::getStr(){
+    return _str;
 }

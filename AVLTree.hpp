@@ -22,14 +22,23 @@ public:
     AVLNode* root;
     static int height(AVLNode* node);
     static int balanceFactor(AVLNode *node);
-    void append(AVLNode* &p, Word* item);
-    void balancear(AVLNode* p,int key);
-    void leftRotate(AVLNode* node);
-    void rightRotate(AVLNode* node);
+    AVLNode* append(AVLNode* &p, Word* item);
+    AVLNode* leftRotate(AVLNode* node);
+    AVLNode* rightRotate(AVLNode* node);
+    AVLNode* leftRightRotate(AVLNode* node);
+    AVLNode* rightLeftRotate(AVLNode* node);
 
-    //void remove(Word* item);
-    AVLNode* find(int key);
-    AVLNode* search(AVLNode* node, int key);
+    AVLNode* remove(AVLNode* &p,Word* item);
+    AVLNode* find(string key);
+    AVLNode* search(AVLNode* node, string key);
+    bool compareKey(string key1,string key2);
+    bool stringComp(string frist, string second, int i);
+
+    AVLNode* lastLeftChild(AVLNode* node);
+    AVLNode* fristRightChild(AVLNode* node);
+    void removeWitchMeaning(AVLNode *root);
+    void deleteTree(AVLNode *root);
+    void preOrder(AVLNode *root);
 
 };
 

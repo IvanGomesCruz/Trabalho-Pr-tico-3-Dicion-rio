@@ -11,16 +11,19 @@ class Word
 private:
     string _type;
     string _word;
-    ListString _meanings;
 
 public:
+    ListString meanings;
+    int numMeanings;
     Word(string type, string word);
     void print();
     void appendMeaning(string line);
     bool operator ==(Word word2);
     string getWord();
     string getType();
-    int getKeyT();
+    string getKeyT();
+    string getMeaning();
 };
+
 
 #endif

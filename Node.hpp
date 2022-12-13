@@ -9,12 +9,12 @@ using namespace std;
 class Node
 {
 private:
-    string _meaning;
+    string _str;
 
 public:
     Node* next;
     Node(string line);
-    string getMeaning();
+    string getStr();
     ~Node();
 };
 

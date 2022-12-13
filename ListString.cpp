@@ -24,7 +24,7 @@ void ListString::print(){
     while(aux != NULL){
         output->print(to_string(num));
         output->print(". ");
-        output->print(aux->getMeaning());
+        output->print(aux->getStr());
         output->print("\n");
         aux = aux->next;
         num++;

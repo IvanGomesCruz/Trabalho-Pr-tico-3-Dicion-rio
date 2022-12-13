@@ -9,12 +9,13 @@ using namespace std;
 
 class ListString
 {
-private:
-    Node* _frist;
+protected:
     Node* _last;
+private:
     int size;
 
 public:
+    Node* _frist;
     ListString();
     ~ListString();
     void print();

@@ -5,8 +5,7 @@ AVLNode::AVLNode(Word* word){
     this->key = content->getKeyT();
     this->leftChild = NULL;
     this->rightChild = NULL;
-    this->parent = NULL;
 }
-int AVLNode::getKey(){
+string AVLNode::getKey(){
     return key;
 }

@@ -9,101 +9,53 @@ int AVLTree::height(AVLNode* node) {
 
 int AVLTree::balanceFactor(AVLNode *node) {
 if (node == NULL) return 0;
-int balance =height(node->rightChild) -
-AVLTree::height(node->leftChild);
+int balance =height(node->rightChild) - AVLTree::height(node->leftChild);
 return balance;
 }
 
 
-void AVLTree::rightRotate(AVLNode* node){
-
-}
-
-void AVLTree::leftRotate(AVLNode* node){
-    if(node->parent == this->root){
-        this->root = node;
-    }
-    node->parent->rightChild = node->leftChild;
-    node->leftChild = node->parent;
-    if(node->key < node->parent->key){
-        node->parent->parent->leftChild = node;
-    }
-    cout<<"chego"<<endl;
-    AVLNode* aux = node->parent;
-    node->parent = node->parent->parent;
-    aux->parent = node;
-    
-    if(aux->rightChild != NULL){
-        aux->rightChild->parent = aux;
-    }
-}
-
-void AVLTree::append(AVLNode* &p, Word* item){
+AVLNode* AVLTree::append(AVLNode* &p, Word* item){
     if(p==NULL){
         p = new AVLNode(item);
+        p->leftChild = NULL;
+        p->rightChild = NULL;
         p->height=AVLTree::height(p);
-        return;
+        return p;
     }
-    int key = item->getKeyT();
-    if(key < p->key){
-        append(p->leftChild, item);
-        p->leftChild->parent = p;
+    string key = item->getKeyT();
+    if(compareKey(p->key,key)){
+        p->leftChild =append(p->leftChild, item);
     }
     else{
-        append(p->rightChild, item);
-        p->rightChild->parent = p;
+        p->rightChild =append(p->rightChild, item);
     }
 
     p->height=AVLTree::height(p);
-    balancear(p,key);
-    
+    if(balanceFactor(p)==2 && balanceFactor(p->rightChild) == 1){
+        p = rightRotate(p);
+    }
+    else if(balanceFactor(p)==-2 && balanceFactor(p->leftChild) == -1){
+        p = leftRotate(p);
+    }
+    else if(balanceFactor(p)==-2 && balanceFactor(p->leftChild) == 1){
+        p = leftRightRotate(p);
+        
+    }
+    else if(balanceFactor(p)==2 && balanceFactor(p->rightChild) == -1){
+        p = rightLeftRotate(p);
+    }
+    return p;
 }
-
-
-void AVLTree::balancear(AVLNode* p,int key){
-    int balance = balanceFactor(p->parent);
-
-
-    if (balance > 1 && key < p->key){
-        cout<<"caso 1"<<endl;
-        cout<<"L - "<<p->key<<endl;
-       leftRotate(p);
-       cout<<"R - "<<p->parent->key<<endl;
-        rightRotate(p);
-        return;
-    }
-
-    if(balance < -1 && key > p->key){
-        leftRotate(p->rightChild);
-        //rightRotate(p);
-        return;
-    }  
-
-
-    if(balance > 1 && key > p->key){
-        cout<<"Caso 1"<<endl;
-        leftRotate(p);
-        return;
-    }
-
-    if(balance < -1 && key < p->key){
-
-        rightRotate(p);
-        return;
-    }
-    
-}
-
-AVLNode* AVLTree::find(int key){
+AVLNode* AVLTree::find(string key){
     return search(this->root,key);
 }
 
-AVLNode* AVLTree::search(AVLNode* node, int key){
+AVLNode* AVLTree::search(AVLNode* node, string key){
     if(node != NULL){
         if(node->getKey() == key){
             return node;
         }
-        if(key > node->getKey()){
+        if(compareKey(key,node->getKey())){
             return search(node->rightChild,key);
         }
         else{
@@ -112,4 +64,179 @@ AVLNode* AVLTree::search(AVLNode* node, int key){
     }
     return NULL;
 
+}
+AVLNode* AVLTree::rightRotate(AVLNode* node){
+    AVLNode* aux;
+    AVLNode* next;
+    aux = node;
+    next = aux->rightChild;
+
+    aux->rightChild = next->leftChild;
+    next->leftChild = aux;
+    return next;
+}
+
+AVLNode* AVLTree::leftRotate(AVLNode* node){
+    AVLNode* aux;
+    AVLNode* next;
+    aux = node;
+    next = aux->leftChild;
+
+    aux->leftChild = next->rightChild;
+    next->rightChild = aux;
+    return next;
+}
+
+AVLNode* AVLTree::leftRightRotate(AVLNode* node){
+    AVLNode* aux;
+    AVLNode* next;
+    AVLNode* aux2;
+    aux = node;
+    next = aux->leftChild;
+    aux2 = node->leftChild->rightChild;
+
+    aux->leftChild = aux2->rightChild;
+    next->rightChild = aux2->leftChild;
+    aux2->rightChild = aux;
+    aux2->leftChild = next;
+    return aux2;
+}
+
+AVLNode* AVLTree::rightLeftRotate(AVLNode* node){
+    AVLNode* aux;
+    AVLNode* next;
+    AVLNode* aux2;
+    aux = node;
+    next = aux->rightChild;
+    aux2 = node->rightChild->leftChild;
+
+    aux->rightChild = aux2->leftChild;
+    next->leftChild = aux2->rightChild;
+    aux2->leftChild = aux;
+    aux2->rightChild = next;
+    return aux2;
+}
+
+bool AVLTree::compareKey(string key1,string key2){
+    return !stringComp(key1,key2,0);
+}
+
+bool AVLTree::stringComp(string frist, string second, int i) {
+
+  if ((int)frist[i] < (int)second[i]) {
+    return true;
+  } else if ((int)frist[i] > (int)second[i]) {
+    return false;
+  } else {
+    if (i == frist.size() - 1) {
+      return true;
+    } else if (i != frist.size() - 1 && i == second.size() - 1) {
+      return false;
+    }
+    return stringComp(frist, second, i + 1);
+  }
+}
+
+AVLNode* AVLTree::remove(AVLNode* &p, Word* item){
+    if(p->leftChild==NULL && p->rightChild==NULL){
+        if(p==this->root){
+            this->root = NULL;
+        }
+        delete p;
+        return NULL;
+    }
+
+    string key = item->getKeyT();
+    AVLNode* aux;
+
+    if(compareKey(p->key,key)){
+        p->leftChild =remove(p->leftChild, item);
+    }
+    else if(compareKey(key,p->key)){
+        p->rightChild =remove(p->rightChild, item);
+    }
+    else{
+        if(p->leftChild != NULL){
+            aux = lastLeftChild(p->leftChild);
+            p->content = aux->content;
+            p->key = aux->key;
+            p->leftChild = remove(p->leftChild,aux->content);
+        }
+        else{
+            aux = fristRightChild(p->rightChild);
+            p->content = aux->content;
+            p->key = aux->key;
+            p->rightChild = remove(p->rightChild,aux->content);
+        }
+        
+    }
+    p->height=AVLTree::height(p);
+    if(balanceFactor(p)==2 && balanceFactor(p->rightChild) == 1){
+        p = rightRotate(p);
+    }
+    else if(balanceFactor(p)==-2 && balanceFactor(p->leftChild) == -1){
+        p = leftRotate(p);
+    }
+    else if(balanceFactor(p)==-2 && balanceFactor(p->leftChild) == 1){
+        p = leftRightRotate(p);
+        
+    }
+    else if(balanceFactor(p)==2 && balanceFactor(p->rightChild) == -1){
+        p = rightLeftRotate(p);
+    }
+    else if(balanceFactor(p)==2 && balanceFactor(p->rightChild) == 0){
+        p = rightRotate(p);
+    }
+    else if(balanceFactor(p)==-2 && balanceFactor(p->leftChild) == 0){
+        p = leftRotate(p);
+    }
+    return p;
+}
+
+AVLNode* AVLTree::lastLeftChild(AVLNode* node){
+    while(node->rightChild!=NULL){
+        node=node->rightChild;
+    }
+    return node;
+
+}
+AVLNode* AVLTree::fristRightChild(AVLNode* node){
+       while(node->leftChild!=NULL){
+        node=node->leftChild;
+    }
+    return node;
+
+
+}
+
+void AVLTree::preOrder(AVLNode *root)
+{ 
+  if(root != NULL)
+  {
+    preOrder(root->leftChild); 
+    root->content->print(); 
+    preOrder(root->rightChild);  
+    }
+}
+
+void AVLTree::removeWitchMeaning(AVLNode *root)
+{ 
+  if(root != NULL)
+  {
+     if(!root->content->meanings.isEmpty()){
+        root = remove(this->root,root->content);
+    } 
+    removeWitchMeaning(root->leftChild); 
+   
+    removeWitchMeaning(root->rightChild); 
+  }
+}
+void AVLTree::deleteTree(AVLNode *root)
+{ 
+  if(root != NULL)
+  {
+    root = remove(this->root,root->content);
+    removeWitchMeaning(root->leftChild);
+    removeWitchMeaning(root->rightChild); 
+  }
 }

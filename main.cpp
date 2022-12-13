@@ -7,9 +7,13 @@
 #include "Word.hpp"
 #include "AVLNode.hpp"
 #include "AVLTree.hpp"
+#include "HashTable.hpp"
+#include "ElementList.hpp"
 
 using namespace std;
 
+void Avl();
+void Hash();
 Word* InputSplit(string input);
 void preOrder(AVLNode *root)
 { 
@@ -17,8 +21,8 @@ void preOrder(AVLNode *root)
   }
   if(root != NULL)
   {
-    cout << root->key << " "; 
     preOrder(root->leftChild); 
+    cout << root->key << " "; 
     preOrder(root->rightChild);  
     }
 }
@@ -31,30 +35,11 @@ int main(int argv,char* argc[]) {
    // i++;
   //}
   //ConfigEntrada* entrada = ConfigEntrada::getInstancia(str);
-  //ConfigSaida* output = ConfigSaida::getInstancia("output.txt");
-  std::ifstream myfile ("entrada.txt",std::fstream::in);
-  string line;
-  Word* word = nullptr;
-  AVLTree* tree = new AVLTree();
-  while(getline(myfile,line)){
-
-    word = InputSplit(line);
-    tree->append(tree->root,word);
-  }
-  preOrder(tree->root);
-  //cout<<endl;
-  //char c;
-  //cin>>c;
-  //int a = c -96;
-  //cout<<a<<endl;
-  //AVLNode* finded = tree->find(a);
-  //if(finded == NULL){
-  //  cout<<"Não encontrado"<<endl;
-  //}
-  //else{
-   // finded->content->print();
-  //}
+  
   //delete(entrada);
+   ConfigSaida* output = ConfigSaida::getInstancia("output.txt");
+   //Avl();
+   Hash();
   return 0;
 }
 
@@ -73,4 +58,53 @@ Word* InputSplit(string input){
     word->appendMeaning(input);
   }
   return word;
+}
+void Hash(){
+  ConfigSaida* output = ConfigSaida::getInstancia();
+  std::ifstream myfile ("input.txt",std::fstream::in);
+  string line;
+  Word* word = nullptr;
+  HashTable* hash = new HashTable();
+  while(getline(myfile,line)){
+    word = InputSplit(line);
+    hash->Insere(word);
+  }
+  //hash->ListChave.print();
+  hash->PrintOrdenado();
+  hash->RemoveWithMeaning();
+  hash->PrintOrdenado();
+  //hash->Tabela[1]._frist->getObject()->print();
+  //word = InputSplit("a [abstract]");
+  //ElementList* finded = hash->Pesquisa(word->getKeyT());
+  //if(finded==NULL){
+   // return;
+ // }
+  
+  //finded->getObject()->print();
+  //tree->preOrder(tree->root);
+  //tree->removeWitchMeaning(tree->root);
+  //tree->preOrder(tree->root);
+}
+void Avl(){
+  ConfigSaida* output = ConfigSaida::getInstancia();
+  std::ifstream myfile ("input.txt",std::fstream::in);
+  string line;
+  Word* word = nullptr;
+  AVLTree* tree = new AVLTree();
+  while(getline(myfile,line)){
+
+    word = InputSplit(line);
+    AVLNode* node = tree->find(word->getKeyT());
+    if(node!=NULL){
+      if(!word->meanings.isEmpty()){
+        node->content->appendMeaning(word->getMeaning());
+      }
+    }
+    else{
+      tree->append(tree->root,word);
+    }
+  }
+  tree->preOrder(tree->root);
+  tree->removeWitchMeaning(tree->root);
+  tree->preOrder(tree->root);
 }

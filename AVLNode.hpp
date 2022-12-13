@@ -11,13 +11,12 @@ class AVLNode
 {
 public:
 Word* content;
-int key;
+string key;
 int height;
 AVLNode* leftChild;
 AVLNode* rightChild;
-AVLNode* parent;
 AVLNode(Word* word);
-int getKey();
+string getKey();
 };
 
 #endif
