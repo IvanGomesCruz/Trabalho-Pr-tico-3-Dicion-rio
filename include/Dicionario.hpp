@@ -5,7 +5,7 @@
 #include "AVLTree.hpp"
 #include "Method.hpp"
 #include "ConfigEntrada.hpp"
-#include "ConfigSaida.hpp"
+
 
 class Dicionario
 {
@@ -15,7 +15,10 @@ private:
     Method* dicionario;
     static Dicionario* instancia;
     Dicionario();
+    Dicionario(int M);
+
 public:
+    static Dicionario* criaDic(int M);
     static Dicionario* criaDic();
     void insereDic(Word* word);  
     void pesquisaDic(string key);

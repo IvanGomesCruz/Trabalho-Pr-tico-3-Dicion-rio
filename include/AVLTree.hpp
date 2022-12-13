@@ -40,7 +40,7 @@ private:
     void preOrder(AVLNode *root);
 
 public:
-
+    ~AVLTree();
     AVLTree();
     void search(string key);
     void append(Word* item);

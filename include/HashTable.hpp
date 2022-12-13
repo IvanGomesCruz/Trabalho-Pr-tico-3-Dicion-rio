@@ -13,16 +13,17 @@
 class HashTable: public Method
 {
 public:
-
+    ~HashTable();
     void append(TipoItem item);
     void remove(TipoChave key);
     void print();
     void removeWithMeaning();
     void search(TipoChave key);
+    HashTable(int Max);
 private:
     ElementList* find(TipoChave key);
-    static const int M = 7;
-    List Tabela[M];
+    int M;
+    List* Tabela;
     OrdenedListString ListChave;
     int Hash(TipoChave key);
   friend class Dicionario;

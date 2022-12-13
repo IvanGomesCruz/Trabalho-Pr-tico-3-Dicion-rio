@@ -9,6 +9,8 @@
 using namespace std;
 
 void PreencheDic();
+int numLines();
+
 Word* InputSplit(string input);
 int main(int argv,char* argc[]) {
   string str;
@@ -20,8 +22,7 @@ int main(int argv,char* argc[]) {
   }
   ConfigEntrada* entrada = ConfigEntrada::getInstancia(str);
   ConfigSaida* output = ConfigSaida::getInstancia(entrada->o);
-
-  Dicionario* dic = Dicionario::criaDic();
+  Dicionario* dic = Dicionario::criaDic(numLines());
   PreencheDic();
   dic->imprimeDic();
   dic->atualizaDic();
@@ -47,9 +48,9 @@ Word* InputSplit(string input){
   }
   return word;
 }
+
 void PreencheDic(){
   ConfigEntrada* input = ConfigEntrada::getInstancia();
-  ConfigSaida* output = ConfigSaida::getInstancia();
   std::ifstream myfile (input->i,std::fstream::in);
   string line;
   Word* word = nullptr;
@@ -60,4 +61,15 @@ void PreencheDic(){
     dic->insereDic(word);
   }
 
+}
+
+int numLines(){
+  ConfigEntrada* input = ConfigEntrada::getInstancia();
+  std::ifstream myfile (input->i,std::fstream::in);
+  int numline=0;
+  string line;
+  while(getline(myfile,line)){
+    numline++;
+  }
+  return numline;
 }

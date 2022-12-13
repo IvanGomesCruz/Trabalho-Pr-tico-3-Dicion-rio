@@ -2,6 +2,10 @@
 #include <iostream>
 #include <string>
 
+    HashTable::HashTable(int Max){
+        this->M = Max;
+        this->Tabela = new List[Max]();
+    }
 
     ElementList* HashTable::find(TipoChave key){
         int hash = Hash(key);
@@ -66,5 +70,9 @@
 void HashTable::search(string key){
     ElementList* aux = find(key);
     aux->getObject()->print();
+}
+
+HashTable::~HashTable(){
+    delete(Tabela);
 }
     

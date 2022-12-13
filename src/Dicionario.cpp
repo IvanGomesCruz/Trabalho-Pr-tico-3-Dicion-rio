@@ -3,18 +3,21 @@
 
 Dicionario* Dicionario::instancia = nullptr;
 
-Dicionario::Dicionario(){
+Dicionario::Dicionario(int numlines){
     ConfigEntrada* entrada = ConfigEntrada::getInstancia();
     if(entrada->t == "arv"){
         this->dicionario = new AVLTree();
     }
     else{
-        this->dicionario = new HashTable();    }
+        this->dicionario = new HashTable(numlines);    }
+}
+Dicionario* Dicionario::criaDic(int numLines){
+    if(instancia == nullptr){
+        instancia = new Dicionario(numLines);
+    }
+    return instancia;
 }
 Dicionario* Dicionario::criaDic(){
-    if(instancia == nullptr){
-        instancia = new Dicionario();
-    }
     return instancia;
 }
 void Dicionario::insereDic(Word* word){

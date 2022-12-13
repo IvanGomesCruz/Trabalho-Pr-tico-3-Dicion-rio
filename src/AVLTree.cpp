@@ -267,3 +267,7 @@ void AVLTree::print(){
 void AVLTree::removeWithMeaning(){
     removeWithMeaning(this->root);
 }
+
+AVLTree::~AVLTree(){
+    delete(root);
+}
