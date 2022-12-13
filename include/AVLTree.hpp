@@ -31,7 +31,7 @@ private:
     AVLNode* find(string key);
     AVLNode* search(AVLNode* node, string key);
     bool compareKey(string key1,string key2);
-    bool stringComp(string frist, string second, int i);
+    bool stringComp(string frist, string second, long unsigned int i);
 
     AVLNode* lastLeftChild(AVLNode* node);
     AVLNode* fristRightChild(AVLNode* node);

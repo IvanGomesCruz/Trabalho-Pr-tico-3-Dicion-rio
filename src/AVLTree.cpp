@@ -121,7 +121,7 @@ bool AVLTree::compareKey(string key1,string key2){
     return !stringComp(key1,key2,0);
 }
 
-bool AVLTree::stringComp(string frist, string second, int i) {
+bool AVLTree::stringComp(string frist, string second, long unsigned int i) {
 
   if ((int)frist[i] < (int)second[i]) {
     return true;

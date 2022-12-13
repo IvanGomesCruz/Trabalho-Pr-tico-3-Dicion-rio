@@ -5,7 +5,6 @@
     class Method
     {
     public:
-
     virtual void search(string key) = 0;
     virtual void append(Word* item) = 0;
     virtual void remove(string key) = 0;

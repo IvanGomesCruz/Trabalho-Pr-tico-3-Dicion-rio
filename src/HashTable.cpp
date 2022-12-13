@@ -34,9 +34,10 @@
         int hash= Hash(key);
         this->Tabela[hash].remove(element);
     }
+
     int  HashTable::Hash(TipoChave key){
         int aux =0;
-        for(int i=0;i<key.size();i++){
+        for(long unsigned int i=0;i<key.size();i++){
             aux+= key[i]*i;
         }
         return aux%M;
