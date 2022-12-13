@@ -16,6 +16,7 @@ ConfigEntrada::ConfigEntrada(string entrada)
 {
     this->i = identificaFlag(entrada,"-i ");
     this->o = identificaFlag(entrada,"-o ");
+    this->t = identificaFlag(entrada,"-t ");
     this->instancia = this;
 }
 string ConfigEntrada::identificaFlag(string str,string flag){

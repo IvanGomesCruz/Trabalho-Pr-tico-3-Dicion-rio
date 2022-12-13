@@ -5,24 +5,26 @@
 #include "Word.hpp"
 #include "List.hpp"
 #include "OrdenedListString.hpp"
+#include "Method.hpp"
 #define TipoItem Word*
 #define TipoChave string
 
 
-class HashTable
+class HashTable: public Method
 {
 public:
 
-     ElementList* Pesquisa(TipoChave chave);
-    void Insere(TipoItem item);
-    void Remove(TipoChave chave);
+    void append(TipoItem item);
+    void remove(TipoChave key);
+    void print();
+    void removeWithMeaning();
+    void search(TipoChave key);
+private:
+    ElementList* find(TipoChave key);
     static const int M = 7;
     List Tabela[M];
     OrdenedListString ListChave;
-    void PrintOrdenado();
-    void RemoveWithMeaning();
-private:
-    int Hash(TipoChave Chave);
-
+    int Hash(TipoChave key);
+  friend class Dicionario;
 };
 #endif

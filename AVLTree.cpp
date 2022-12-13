@@ -137,7 +137,7 @@ bool AVLTree::stringComp(string frist, string second, int i) {
   }
 }
 
-AVLNode* AVLTree::remove(AVLNode* &p, Word* item){
+AVLNode* AVLTree::remove(AVLNode* &p, string key){
     if(p->leftChild==NULL && p->rightChild==NULL){
         if(p==this->root){
             this->root = NULL;
@@ -146,27 +146,27 @@ AVLNode* AVLTree::remove(AVLNode* &p, Word* item){
         return NULL;
     }
 
-    string key = item->getKeyT();
+    
     AVLNode* aux;
 
     if(compareKey(p->key,key)){
-        p->leftChild =remove(p->leftChild, item);
+        p->leftChild =remove(p->leftChild, key);
     }
     else if(compareKey(key,p->key)){
-        p->rightChild =remove(p->rightChild, item);
+        p->rightChild =remove(p->rightChild, key);
     }
     else{
         if(p->leftChild != NULL){
             aux = lastLeftChild(p->leftChild);
             p->content = aux->content;
             p->key = aux->key;
-            p->leftChild = remove(p->leftChild,aux->content);
+            p->leftChild = remove(p->leftChild,aux->content->getKeyT());
         }
         else{
             aux = fristRightChild(p->rightChild);
             p->content = aux->content;
             p->key = aux->key;
-            p->rightChild = remove(p->rightChild,aux->content);
+            p->rightChild = remove(p->rightChild,aux->content->getKeyT());
         }
         
     }
@@ -219,24 +219,51 @@ void AVLTree::preOrder(AVLNode *root)
     }
 }
 
-void AVLTree::removeWitchMeaning(AVLNode *root)
+void AVLTree::removeWithMeaning(AVLNode *root)
 { 
   if(root != NULL)
   {
      if(!root->content->meanings.isEmpty()){
-        root = remove(this->root,root->content);
+        root = remove(this->root,root->content->getKeyT());
     } 
-    removeWitchMeaning(root->leftChild); 
+    removeWithMeaning(root->leftChild); 
    
-    removeWitchMeaning(root->rightChild); 
+    removeWithMeaning(root->rightChild); 
   }
 }
 void AVLTree::deleteTree(AVLNode *root)
 { 
   if(root != NULL)
   {
-    root = remove(this->root,root->content);
-    removeWitchMeaning(root->leftChild);
-    removeWitchMeaning(root->rightChild); 
+    root = remove(this->root,root->content->getKeyT());
+    removeWithMeaning(root->leftChild);
+    removeWithMeaning(root->rightChild); 
   }
+}
+
+void AVLTree::search(string key){
+    AVLNode* aux =search(this->root,key);
+    aux->content->print();
+
+}
+void AVLTree::append(Word* item){
+    AVLNode* node = find(item->getKeyT());
+    if(node!=NULL){
+      if(!item->meanings.isEmpty()){
+        node->content->appendMeaning(item->getMeaning());
+      }
+    }
+    else{
+      append(root,item);
+    }
+}
+void AVLTree::remove(string key){
+    remove(this->root,key);
+}
+void AVLTree::print(){
+    preOrder(this->root);
+}
+
+void AVLTree::removeWithMeaning(){
+    removeWithMeaning(this->root);
 }

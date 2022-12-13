@@ -12,6 +12,7 @@ private:
 public:
     string i;
     string o;
+    string t;
     static ConfigEntrada* getInstancia();
     static ConfigEntrada* getInstancia(string entrada);
 };

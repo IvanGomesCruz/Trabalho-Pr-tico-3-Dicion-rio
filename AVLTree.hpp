@@ -2,6 +2,7 @@
 #include <iostream>
 #include "AVLNode.hpp"
 #include "Word.hpp"
+#include "Method.hpp"
 #include <string>
 using namespace std;
 
@@ -13,11 +14,9 @@ using namespace std;
 #ifndef AVLT
 #define AVLT
 
-class AVLTree
+class AVLTree:Method
 {
 private:
-public:
-    AVLTree();
 
     AVLNode* root;
     static int height(AVLNode* node);
@@ -28,7 +27,7 @@ public:
     AVLNode* leftRightRotate(AVLNode* node);
     AVLNode* rightLeftRotate(AVLNode* node);
 
-    AVLNode* remove(AVLNode* &p,Word* item);
+    AVLNode* remove(AVLNode* &p,string key);
     AVLNode* find(string key);
     AVLNode* search(AVLNode* node, string key);
     bool compareKey(string key1,string key2);
@@ -36,10 +35,19 @@ public:
 
     AVLNode* lastLeftChild(AVLNode* node);
     AVLNode* fristRightChild(AVLNode* node);
-    void removeWitchMeaning(AVLNode *root);
+    void removeWithMeaning(AVLNode *root);
     void deleteTree(AVLNode *root);
     void preOrder(AVLNode *root);
 
+public:
+
+    AVLTree();
+    void search(string key);
+    void append(Word* item);
+    void remove(string key);
+    void print();
+    void removeWithMeaning();
+friend class Dicionario;
 };
 
 
