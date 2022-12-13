@@ -1,9 +1,9 @@
 
 #include <iostream>
+#include <string>
 #include "AVLNode.hpp"
 #include "Word.hpp"
 #include "Method.hpp"
-#include <string>
 using namespace std;
 
 #define LEFT_LEFT 1
