@@ -7,7 +7,7 @@ private:
     
 public:
   void append(string line);
-  bool stringComp(string frist, string second, int i);
+  bool stringComp(string frist, string second, long unsigned int i);
   void print();
 
 };

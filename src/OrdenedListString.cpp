@@ -27,7 +27,7 @@ void OrdenedListString::append(string line){
 
 }
 
-bool OrdenedListString::stringComp(string frist, string second, int i) {
+bool OrdenedListString::stringComp(string frist, string second, long unsigned int i) {
 
   if ((int)frist[i] < (int)second[i]) {
     return true;
